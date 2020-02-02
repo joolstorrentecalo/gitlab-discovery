@@ -122,7 +122,7 @@ import { Getter, Action }       from 'vuex-class';
 // import Log                      from  '../lib/log';
 import { GlFormInput, GlButton } from '@gitlab/ui';
 import { Gitlab }               from 'gitlab';
-import { setGlobalConfigValue } from '../lib/git';
+// import { setGlobalConfigValue } from '../lib/git';
 // import router                   from '../router';
 
 @Component({
@@ -238,15 +238,15 @@ export default class Welcome extends Vue {
   }
 
   private setGitConfig() {
-    const config = [
-      setGlobalConfigValue('user.name', this.nameUser),
-      setGlobalConfigValue('user.email', this.email),
-    ];
-    // Go to home app.
-    Promise.all(config).then(() => {
-      this.finish();
-      // router.push('/home');
-    });
+    // const config = [
+    //   setGlobalConfigValue('user.name', this.nameUser),
+    //   setGlobalConfigValue('user.email', this.email),
+    // ];
+    // // Go to home app.
+    // Promise.all(config).then(() => {
+    //   this.finish();
+    //   // router.push('/home');
+    // });
   }
 }
 </script>
