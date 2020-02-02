@@ -7,8 +7,10 @@
 import { GetterTree } from 'vuex';
 import { RootState }  from './types';
 
-export const getters: GetterTree<RootState, any> = {
+const getters: GetterTree<RootState, any> = {
   idUser: (state): number => state.idUser,
   signUpProgress: (state): number => state.signUpProgress,
   user: (state): any => state.user,
 };
+
+export default getters;

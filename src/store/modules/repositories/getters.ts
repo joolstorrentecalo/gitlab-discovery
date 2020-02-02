@@ -8,6 +8,8 @@ import { GetterTree }         from 'vuex';
 import { RepositoriesState }  from './types';
 import { RootState }          from '../../types';
 
-export const getters: GetterTree<RepositoriesState, RootState> = {
+const getters: GetterTree<RepositoriesState, RootState> = {
   projects: state => state.repositories,
 };
+
+export default getters;

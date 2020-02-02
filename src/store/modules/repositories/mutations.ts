@@ -9,7 +9,7 @@
 import { MutationTree }       from 'vuex';
 import { RepositoriesState }  from './types';
 
-export const mutations: MutationTree<RepositoriesState> = {
+const mutations: MutationTree<RepositoriesState> = {
   ADD_REPOSITORY(state, repo) {
     // state.repositories.unshift(repo);
   },
@@ -20,3 +20,5 @@ export const mutations: MutationTree<RepositoriesState> = {
     state.repositories = repositories;
   },
 };
+
+export default mutations;

@@ -11,9 +11,9 @@ import { RootState }    from './types';
 // Modules
 import { users }        from './modules/users';
 import { repositories } from './modules/repositories';
-import { getters }      from './getters';
-import { actions }      from './actions';
-import { mutations }    from './mutations';
+import getters          from './getters';
+import actions          from './actions';
+import mutations        from './mutations';
 
 Vue.use(Vuex);
 const store = new Vuex.Store<RootState>({

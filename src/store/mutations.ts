@@ -9,7 +9,7 @@
 import { MutationTree } from 'vuex';
 import { RootState }    from './types';
 
-export const mutations: MutationTree<RootState> = {
+const mutations: MutationTree<RootState> = {
   SET_CONFIG(state, config) {
     if (config.user) {
       state.user = JSON.parse(config.user);
@@ -27,5 +27,7 @@ export const mutations: MutationTree<RootState> = {
   FINISH_INITIAL_CONFIG(state: RootState) {
     state.initialConfig = 'complete';
     localStorage.setItem('initial_config', 'complete');
-  }
+  },
 };
+
+export default mutations;
