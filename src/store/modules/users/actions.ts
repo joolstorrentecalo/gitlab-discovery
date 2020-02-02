@@ -10,9 +10,9 @@ import { ActionTree }     from 'vuex';
 import { IState, IUser }  from './types';
 import { RootState }      from '../../types';
 import { db }             from '../../db';
-import Log                from '../../../lib/log';
+// import Log                from '../../../lib/log';
 
-export const actions: ActionTree<IState, RootState> = {
+const actions: ActionTree<IState, RootState> = {
   INIT(context) {
     context.dispatch('FETCH_USERS');
   },
@@ -26,19 +26,22 @@ export const actions: ActionTree<IState, RootState> = {
   },
   async ADD_USER(context, user: IUser) {
     let id: number;
-    user.created_at = new Date().toISOString();
-    user.updated_at = '';
+    const newUser = user;
+    newUser.created_at = new Date().toISOString();
+    newUser.updated_at = '';
 
     try {
-      id = await db.users.add(user);
+      id = await db.users.add(newUser);
       localStorage.setItem('id_user', id.toString());
-      context.commit('ADD_USER', user);
+      context.commit('ADD_USER', newUser);
       context.dispatch('INIT', null, { root: true });
       context.dispatch('UPDATE_SIGNUP_PROGRESS', null, { root: true });
-      Log.info('Store action', `User added ${id}`);
+      // Log.info('Store action', `User added ${id}`);
     } catch (err) {
-      Log.error('Store action', 'Oops, failed to add user');
-      Log.error('Store action', err);
+      // Log.error('Store action', 'Oops, failed to add user');
+      // Log.error('Store action', err);
     }
   },
 };
+
+export default actions;

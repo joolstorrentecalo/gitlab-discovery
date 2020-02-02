@@ -4,24 +4,23 @@
  * found in the LICENSE file.
  */
 
- // tslint:disable function-name
+// tslint:disable function-name
 
 import { ActionTree } from 'vuex';
-import { RootState }  from './types';
-import Log            from '../lib/log';
-
+import { RootState } from './types';
+// import Log            from '../lib/log';
 
 const DB_INIT = [
   'users/INIT',
   'repositories/INIT',
 ];
 
-export const actions: ActionTree<RootState, any> = {
+const actions: ActionTree<RootState, any> = {
   INIT(context) {
     context.dispatch('LOAD_CONFIG');
     context.dispatch('LOAD_DB');
     // tslint:disable-next-line: no-console
-    Log.info('Store', 'Database init...');
+    // Log.info('Store', 'Database init...');
   },
   LOAD_CONFIG({ commit }) {
     const config = {
@@ -42,5 +41,7 @@ export const actions: ActionTree<RootState, any> = {
   },
   FINISH_INITIAL_CONFIG({ commit }) {
     commit('FINISH_INITIAL_CONFIG');
-  }
+  },
 };
+
+export default actions;

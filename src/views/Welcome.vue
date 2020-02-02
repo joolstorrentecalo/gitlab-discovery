@@ -8,29 +8,39 @@
   <div class="welcome">
     <div class="form">
       <div class="d-flex h-100 align-items-center text-left">
-        <div v-show="signUpProgress == 0" class="full p-4 px-6">
-          <h2>{{this.$i18n.t('welcome_title')}}</h2>
-          <span class="py-4 d-block">{{this.$i18n.t('welcome_about')}}</span>
-          <div class="divider"></div>
+        <div
+          v-show="signUpProgress == 0"
+          class="full p-4 px-6"
+        >
+          <h2>{{ this.$i18n.t('welcome_title') }}</h2>
+          <span class="py-4 d-block">{{ this.$i18n.t('welcome_about') }}</span>
+          <div class="divider" />
           <span class="py-2 d-block">
-            {{this.$i18n.t('new_question')}}
+            {{ this.$i18n.t('new_question') }}
             <a
               href="#"
               class="a"
               @click="openLink('https://gitlab.com/users/sign_in#register-pane')"
-            >{{this.$i18n.t('create_account')}}</a>.
+            >{{ this.$i18n.t('create_account') }}</a>.
           </span>
-          <a class="d-inline-block py-2" href="#" @click="sign()">{{this.$i18n.t('sign_in_gitlab')}}</a>
+          <a
+            class="d-inline-block py-2"
+            href="#"
+            @click="sign()"
+          >{{ this.$i18n.t('sign_in_gitlab') }}</a>
         </div>
 
-        <div v-show="signUpProgress == 1" class="full p-4 px-6">
-          <h2>{{this.$i18n.t('sign_in_title')}}</h2>
-          <span class="py-2">{{this.$i18n.t('welcome_insert_infos')}}</span>
+        <div
+          v-show="signUpProgress == 1"
+          class="full p-4 px-6"
+        >
+          <h2>{{ this.$i18n.t('sign_in_title') }}</h2>
+          <span class="py-2">{{ this.$i18n.t('welcome_insert_infos') }}</span>
 
           <GlFormInput
+            v-model="token"
             class="d-block my-2"
             type="text"
-            v-model="token"
             :placeholder="this.$i18n.t('access_token')"
           />
           <small
@@ -40,57 +50,60 @@
           <GlButton
             class="d-inline-block my-3"
             :disabled="token == ''"
-            @click="addUser"
             variant="success"
+            @click="addUser"
           >
-            {{this.$i18n.t('sign_in_title')}}
+            {{ this.$i18n.t('sign_in_title') }}
           </GlButton>
         </div>
 
-        <div v-if="signUpProgress == 2" class="full p-4 px-6">
-          <h2>{{this.$i18n.t('configure_git_title')}}</h2>
-          <span class="py-2 mb-3 d-block">{{this.$i18n.t('configure_git_desc')}}</span>
+        <div
+          v-if="signUpProgress == 2"
+          class="full p-4 px-6"
+        >
+          <h2>{{ this.$i18n.t('configure_git_title') }}</h2>
+          <span class="py-2 mb-3 d-block">{{ this.$i18n.t('configure_git_desc') }}</span>
           <span class="d-block my-2">Name</span>
           <GlFormInput
-            class="d-block my-2"
-            placeholder="Your name" 
             v-model="gitlabUserName"
+            class="d-block my-2"
+            placeholder="Your name"
             type="text"
           />
           <span class="d-block my-2">Email</span>
           <GlFormInput
-            class="d-block my-2"
-            placeholder="Your email" 
             v-model="gitlabUserEmail"
+            class="d-block my-2"
+            placeholder="Your email"
             type="text"
           />
           <div class="d-block my-3">
-          <GlButton
-            class="d-inline-block my-3"
-            @click="backStep(0)"
-          >
-            Cancel
-          </GlButton>
-          <GlButton
-            class="d-inline-block ml-2 my-3"
-            @click="setGitConfig"
-            variant="success"
-          >
-            Next
-          </GlButton>
+            <GlButton
+              class="d-inline-block my-3"
+              @click="backStep(0)"
+            >
+              Cancel
+            </GlButton>
+            <GlButton
+              class="d-inline-block ml-2 my-3"
+              variant="success"
+              @click="setGitConfig"
+            >
+              Next
+            </GlButton>
           </div>
 
           <div class="example-commit">
-            <small class="example-commit-header">{{this.$i18n.t('example_commit')}}</small>
+            <small class="example-commit-header">{{ this.$i18n.t('example_commit') }}</small>
             <div class="example-commit-container">
-              <small class="example-commit-title">{{this.$i18n.t('example_commit_title')}}</small>
+              <small class="example-commit-title">{{ this.$i18n.t('example_commit_title') }}</small>
               <div>
                 <img
                   class="example-commit-avatar"
                   :src="user.avatar_url + '?private_token=' + user.token"
-                />
+                >
                 <small class="example-commit-username">{{ gitlabUserName }}</small>
-                <small class="example-commit-time">{{this.$i18n.t('example_commit_time')}}</small>
+                <small class="example-commit-time">{{ this.$i18n.t('example_commit_time') }}</small>
               </div>
             </div>
           </div>
@@ -101,43 +114,59 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable no-useless-escape */
+
 import { Component, Vue }       from 'vue-property-decorator';
 import { shell }                from 'electron';
 import { Getter, Action }       from 'vuex-class';
-import Log                      from  '../lib/log';
+// import Log                      from  '../lib/log';
 import { GlFormInput, GlButton } from '@gitlab/ui';
 import { Gitlab }               from 'gitlab';
 import { setGlobalConfigValue } from '../lib/git';
-import router                   from '../router'
+// import router                   from '../router';
 
 @Component({
   components: {
     GlFormInput,
     GlButton,
-  }
+  },
 })
 export default class Welcome extends Vue {
   // Getters
   @Getter('idUser') private currentUser!: number;
+
   @Getter('user') private user!: any;
+
   @Getter('signUpProgress') private signUpProgress!: number;
 
   // Actions
   @Action('users/ADD_USER') private ADD_USER: any;
+
   @Action('UPDATE_SIGNUP_PROGRESS') private NEXT_WINDOW: any;
+
   @Action('FINISH_INITIAL_CONFIG') private finish: any;
 
   // Data property
   private token!: string;
+
   private email!: string;
+
   private nameUser!: string;
+
   private errorEmail!: boolean;
+
   private errorNameUser!: boolean;
+
   private errorToken!: boolean;
+
   private gitlabUserName!: string;
+
   private gitlabUserEmail!: string;
+
   private currentWindow!: string;
+
   private getUser!: boolean;
+
   private step!: number;
 
   constructor() {
@@ -160,13 +189,13 @@ export default class Welcome extends Vue {
     this.NEXT_WINDOW();
   }
 
-  private openLink(url: string) {
+  private openLink(url: string): void {
     shell.openExternal(url);
   }
 
-  private addUser() {
+  private addUser(): void {
     if (this.getUser) {
-      return false;
+      return;
     }
     // tslint:disable-next-line
     const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -216,10 +245,9 @@ export default class Welcome extends Vue {
     // Go to home app.
     Promise.all(config).then(() => {
       this.finish();
-      router.push('/home');
+      // router.push('/home');
     });
   }
-
 }
 </script>
 
@@ -337,4 +365,3 @@ export default class Welcome extends Vue {
 //   }
 // }
 </style>
-
