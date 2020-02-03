@@ -1,12 +1,15 @@
 <template>
-  <div id="app" class="d-flex">
-    <router-view/>
+  <div
+    id="app"
+    class="d-flex"
+  >
+    <router-view />
   </div>
 </template>
 
 <script lang='ts'>
-import router from './router';
 import { Component, Vue } from 'vue-property-decorator';
+import router from './router';
 
 @Component
 export default class Home extends Vue {
@@ -16,7 +19,6 @@ export default class Home extends Vue {
     }
   }
 }
-
 
 </script>
 

@@ -238,15 +238,16 @@ export default class Welcome extends Vue {
   }
 
   private setGitConfig() {
-    // const config = [
-    //   setGlobalConfigValue('user.name', this.nameUser),
-    //   setGlobalConfigValue('user.email', this.email),
-    // ];
-    // // Go to home app.
-    // Promise.all(config).then(() => {
-    //   this.finish();
-    //   // router.push('/home');
-    // });
+    const config = [
+      this.$git.config.setGlobalConfigValue('user.email', this.gitlabUserEmail),
+      this.$git.config.setGlobalConfigValue('user.name', this.gitlabUserName),
+    ];
+
+    // Go to home app.
+    Promise.all(config).then(() => {
+      this.finish();
+      this.$router.push('/home');
+    });
   }
 }
 </script>

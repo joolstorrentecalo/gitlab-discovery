@@ -9,8 +9,10 @@ import App    from './App.vue';
 import router from './router';
 import store  from './store';
 import i18n   from './locales';
+import Git    from './git';
 
 Vue.config.productionTip = false;
+Vue.use(Git, store);
 
 new Vue({
   router,

@@ -18,5 +18,5 @@
   "configure_git_desc": "Isso é usado para identificar os commits que você cria. Qualquer um poderá ver essa informação se você publicar commits.",
   "example_commit": "Exemplo de commit",
   "example_commit_title": "Meu encrível commit",
-  "example_commit_time": "committ feito 10 minutos atrás"
+  "example_commit_time": " committ feito 10 minutos atrás"
 }
