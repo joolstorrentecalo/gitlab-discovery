@@ -13,7 +13,7 @@
   },
   "main": "background.js",
   "dependencies": {
-    "@gitlab/ui": "^5.26.1",
+    "@gitlab/ui": "^105.1.0",
     "bootstrap": "^4.3.1",
     "electron-log": "^3.0.8",
     "i": "^0.3.6",
